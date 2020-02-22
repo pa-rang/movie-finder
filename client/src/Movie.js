@@ -1,6 +1,13 @@
 import React from 'react';
 
 function Movie({ title, image, pubDate, director, actor, userRating }) {
+    // const parser = new DOMParser ();
+    // const el = parser.parseFromString (title, "text/xml");
+    // const element = document.getElementsByClassName ("movie_title");
+    // if (element[0]) {
+    //     element[0].appendChild(el);
+    // }
+    
     return(
         <div className="movie">
             <div className="movie_poster">

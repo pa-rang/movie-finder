@@ -12,13 +12,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/api/movies', async ({query : q}, res) => {
-    const {query} = q;
+    const {query, page} = q;
     const response = await axios('https://openapi.naver.com/v1/search/movie.json',
         {
             params: {
                 query: '\"'+query+'\"',
                 display: 4,
-                start: 1,
+                start: 4*(page-1)+1,
             },
             headers: {
                 'X-Naver-Client-Id': NAVER_CLIENT_ID,

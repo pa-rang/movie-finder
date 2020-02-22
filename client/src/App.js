@@ -11,6 +11,21 @@ class App extends React.Component {
     isLoading: true,
     movies: [],
     searchValue: "",
+    page: 1
+  };
+
+  handlePrevClick = () => {
+    this.setState(prevState => ({
+      page: prevState.page - 1,
+    }));
+  };
+  
+  handleNextClick = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+    // this.handleSearch (); 
+    // state 변경시 호출하는 life cycle function 이용할 것.
   };
 
   handleOnChange = e => {
@@ -18,21 +33,21 @@ class App extends React.Component {
   }
 
   handleSearch = () => {
-    this.getMovie(this.state.searchValue)
+    console.log('handlePage:', this.state.page);
+    this.getMovie(this.state.searchValue, this.state.page)
       .then(res => this.setState({ movies: res, isLoading: false }))
       .catch(err => console.log(err));
     console.log("this.state.searchValue", this.state.searchValue);
   };
 
-  getMovie = async (searchInput) => {
-    console.log("searchInput", searchInput);
-    const response = await fetch(`/api/movies?query=${searchInput}`);
+  getMovie = async (searchInput, page) => {
+    const response = await fetch(`/api/movies?query=${searchInput}&page=${page}`);
     const body = response.json();
-    console.log("body", body);
     return body;
   };
 
   render() {
+    console.log(this.state.page);
     const { isLoading, movies } = this.state;
     return (
       <section className="container">
@@ -40,8 +55,10 @@ class App extends React.Component {
           <Search
             handleOnChange={this.handleOnChange}
             handleSearch={this.handleSearch}
-          />
+            />
         </div>
+        <button className="prev" onClick={this.handlePrevClick}>이전</button>
+        <button className="next" onClick={this.handleNextClick}>다음</button>
         {isLoading ? (
           <div className="loader">
             <span className="Loader_text">영화를 검색하세용</span>
