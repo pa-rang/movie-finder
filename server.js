@@ -5,8 +5,10 @@ const port = process.env.PORT || 3001;
 // const request = require('request')
 const axios = require('axios')
 
-const NAVER_CLIENT_ID = '4NPKg_5FrZVxNx959TKz'
-const NAVER_CLIENT_SECRET = 'HwQwSnn63q'
+require('dotenv').config();
+
+const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
+const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
